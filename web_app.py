@@ -68,8 +68,20 @@ async def analyze_workflow(request: WorkflowAnalysisRequest):
     if not request.shot_description.strip():
         raise HTTPException(status_code=400, detail="Shot description cannot be empty.")
 
-    gemini_key = request.gemini_api_key or os.environ.get("GEMINI_API_KEY", "").strip()
-    parallel_key = request.parallel_api_key or os.environ.get("PARALLEL_API_KEY", "").strip()
+    gemini_key = (request.gemini_api_key or os.environ.get("GEMINI_API_KEY", "")).strip()
+    parallel_key = (request.parallel_api_key or os.environ.get("PARALLEL_API_KEY", "")).strip()
+
+    missing_keys = []
+    if not gemini_key:
+        missing_keys.append("GEMINI_API_KEY")
+    if not parallel_key:
+        missing_keys.append("PARALLEL_API_KEY")
+
+    if missing_keys:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Authentication Error: Missing required key(s): {', '.join(missing_keys)}. Both GEMINI_API_KEY and PARALLEL_API_KEY must be configured in environment or entered in the UI to run the Cost Optimizer Agent."
+        )
 
     events: List[Dict[str, Any]] = []
     t_start = time.time()
@@ -94,23 +106,33 @@ async def analyze_workflow(request: WorkflowAnalysisRequest):
         {"essential_capabilities": shot_reqs["essential_capabilities"]}
     )
 
-    # 2. Parallel Search API Tool
-    log_event("Parallel Search API", "Searching current video model pricing & capabilities...", "running")
-    parallel_search_info = search_video_models_and_pricing(
-        query=request.shot_description,
-        api_key=parallel_key,
-    )
-    log_event("Parallel Search API", f"Provider intelligence retrieved ({parallel_search_info.get('source', 'Live')})", "done")
+    # 2. Parallel Search API Tool (Strict execution)
+    log_event("Parallel Search API", "Querying live provider intelligence from Parallel Search...", "running")
+    try:
+        parallel_search_info = search_video_models_and_pricing(
+            query=request.shot_description,
+            api_key=parallel_key,
+        )
+        if parallel_search_info.get("status") in ("api_error", "network_error"):
+            raise RuntimeError(f"Parallel Search API error: {parallel_search_info.get('error') or parallel_search_info.get('message')}")
+        log_event("Parallel Search API", f"Provider intelligence retrieved ({parallel_search_info.get('source', 'Live')})", "done")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Parallel Search API Failure: {exc}")
 
-    # 3. Stock Footage Discovery
-    log_event("Parallel Search API", "Querying live 4K stock video & b-roll candidates...", "running")
-    stock_discovery = parallel_search_video_footage(
-        shot_description=request.shot_description,
-        max_results=3,
-        api_key=parallel_key,
-    )
-    stock_count = len(stock_discovery.get("results", []))
-    log_event("Parallel Search API", f"Discovered {stock_count} matching stock footage / b-roll assets", "done")
+    # 3. Stock Footage Discovery (Strict execution)
+    log_event("Parallel Search API", "Querying live 4K stock footage & VFX background plates...", "running")
+    try:
+        stock_discovery = parallel_search_video_footage(
+            shot_description=request.shot_description,
+            max_results=3,
+            api_key=parallel_key,
+        )
+        if stock_discovery.get("status") in ("api_error", "network_error"):
+            raise RuntimeError(f"Parallel Footage Search error: {stock_discovery.get('error_details') or stock_discovery.get('error_message')}")
+        stock_count = len(stock_discovery.get("results", []))
+        log_event("Parallel Search API", f"Discovered {stock_count} matching stock footage / b-roll assets", "done")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Parallel Footage Search Failure: {exc}")
 
     # 4. Cost Engine Execution
     log_event("Cost Engine", "Normalizing pricing and evaluating model suitability...", "running")
@@ -128,7 +150,7 @@ async def analyze_workflow(request: WorkflowAnalysisRequest):
         "done"
     )
 
-    # 5. Gemini LLM Reasoning
+    # 5. Gemini LLM Reasoning (Strict execution)
     log_event("Google Gemini", "Invoking Gemini LLM for expert scene deconstruction and tradeoff analysis...", "running")
     viable_summary = [
         {
@@ -151,19 +173,20 @@ async def analyze_workflow(request: WorkflowAnalysisRequest):
         for m in evaluation.eliminated_models
     ]
 
-    gemini_result = run_gemini_shot_reasoning(
-        shot_description=request.shot_description,
-        duration_seconds=request.duration_seconds,
-        rerun_multiplier=request.rerun_multiplier,
-        viable_models_summary=viable_summary,
-        eliminated_models_summary=elim_summary,
-        api_key=gemini_key,
-    )
-
-    if gemini_result.get("used_gemini"):
+    try:
+        gemini_result = run_gemini_shot_reasoning(
+            shot_description=request.shot_description,
+            duration_seconds=request.duration_seconds,
+            rerun_multiplier=request.rerun_multiplier,
+            viable_models_summary=viable_summary,
+            eliminated_models_summary=elim_summary,
+            api_key=gemini_key,
+        )
+        if not gemini_result.get("used_gemini"):
+            raise RuntimeError(gemini_result.get("error", "Gemini generation failed"))
         log_event("Google Gemini", f"Received live reasoning from {gemini_result.get('model_used')}", "done")
-    else:
-        log_event("Production Analyzer", "Generated deterministic production reasoning & tradeoff breakdown", "done")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Google Gemini Reasoning Failure: {exc}")
 
     log_event("System", "Cost optimization workflow complete. Rendering comparison dashboard.", "done")
 
@@ -976,7 +999,11 @@ HTML_CONTENT = """<!DOCTYPE html>
 
       try {
         const startTime = Date.now();
-        const resPromise = fetch('/api/analyze', {
+        const endpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.origin.includes('run.app'))
+          ? '/api/analyze'
+          : 'https://agent-film-cost-optimizer-709949980336.us-central1.run.app/api/analyze';
+
+        const resPromise = fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -998,7 +1025,14 @@ HTML_CONTENT = """<!DOCTYPE html>
         const res = await resPromise;
         clearInterval(progressTicker);
 
-        if (!res.ok) throw new Error('Analysis request failed: ' + res.statusText);
+        if (geminiKey) localStorage.setItem('GEMINI_API_KEY', geminiKey);
+        if (parallelKey) localStorage.setItem('PARALLEL_API_KEY', parallelKey);
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          const errMsg = errData.detail || ('Request failed (' + res.status + '): ' + res.statusText);
+          throw new Error(errMsg);
+        }
         const data = await res.json();
 
         // Stream in the actual timeline events returned from the backend
@@ -1023,10 +1057,21 @@ HTML_CONTENT = """<!DOCTYPE html>
         document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
 
       } catch (err) {
-        statusText.innerText = 'Failed: ' + err.message;
-        addProcessLogEvent('+ERR', 'Error', err.message, 'badge-rose');
+        statusText.innerText = 'Error: ' + err.message;
+        addProcessLogEvent('+ERROR', 'Auth/Execution Error', err.message, 'badge-rose');
+        // Open settings drawer if missing API key
+        if (err.message.includes('API') || err.message.includes('Authentication') || err.message.includes('key')) {
+          document.getElementById('settingsPanel').style.display = 'block';
+        }
       }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const g = localStorage.getItem('GEMINI_API_KEY');
+      const p = localStorage.getItem('PARALLEL_API_KEY');
+      if (g) document.getElementById('geminiKeyInput').value = g;
+      if (p) document.getElementById('parallelKeyInput').value = p;
+    });
 
     function addProcessLogEvent(timeStr, service, msg, badgeClass) {
       const logBox = document.getElementById('processLogContainer');

@@ -98,21 +98,19 @@ PARALLEL_API_KEY="your_parallel_api_key"   # https://parallel.ai
 GEMINI_MODEL="gemini-2.5-flash"
 ```
 
-> **Note**: If `PARALLEL_API_KEY` is not provided, the tool automatically operates in simulated discovery mode with sample stock asset data for development and testing.
+> **Important**: Both `GEMINI_API_KEY` and `PARALLEL_API_KEY` are strictly required to execute the agent workflow. If either key is missing or invalid, the system strictly halts with an authentication error rather than returning simulated data.
+> Keys can be provided in your `.env` file, environment variables, or entered directly into the web UI's **API Settings** panel.
 
 ---
 
 ## 💻 Usage
 
-### Option 0: Live Browser App on GitHub Pages (Zero Install)
+### Option 0: Live Hosted Cloud Run Web App
+Open the live hosted web application directly:
+**👉 [https://agent-film-cost-optimizer-709949980336.us-central1.run.app](https://agent-film-cost-optimizer-709949980336.us-central1.run.app)**
 
-Open the hosted web app in your browser:
+Or via GitHub Pages:
 **👉 [https://watsoncsulahack.github.io/agent-film-cost-optimizer/](https://watsoncsulahack.github.io/agent-film-cost-optimizer/)**
-
-To host it on your own fork:
-1. Go to your repository **Settings** → **Pages**.
-2. Under **Build and deployment** → **Branch**, select `main` and folder `/docs` (or `/ (root)`).
-3. Click **Save** — your site will be live in seconds!
 
 ### Option A: Filmmaker Interactive Web Frontend (`web_app.py`)
 

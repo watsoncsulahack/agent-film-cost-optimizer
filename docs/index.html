@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cost Optimizer Agent • AI Video Production Cost Optimizer</title>
-  <meta name="description" content="Autonomous AI Video Production Cost Optimizer & Model Ranker built on Google ADK architecture and Parallel Search. Test directly in your browser.">
+  <title>Cost Optimizer Agent - AI Video Production</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,20 +22,16 @@
       --accent-amber: #f59e0b;
       --accent-rose: #f43f5e;
       --gradient-accent: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-      --gradient-glow: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-primary);
-      background-image: var(--gradient-glow);
-      background-repeat: no-repeat;
-      background-size: 100% 600px;
       color: var(--text-primary);
       line-height: 1.5;
       min-height: 100vh;
-      padding: 2rem 1.25rem 4rem 1.25rem;
+      padding: 2rem 1.25rem;
     }
 
     .container {
@@ -51,7 +46,7 @@
     .header-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.3);
       color: var(--accent-blue);
@@ -64,7 +59,7 @@
       margin-bottom: 0.6rem;
     }
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       background: var(--gradient-accent);
@@ -74,51 +69,26 @@
     }
     .subtitle {
       color: var(--text-secondary);
-      font-size: 0.98rem;
-      max-width: 650px;
-      margin: 0 auto;
+      font-size: 0.95rem;
     }
 
-    .top-nav-bar {
+    .settings-bar {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .github-link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #0e1726;
-      border: 1px solid var(--border-color);
-      color: #cbd5e1;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.45rem 0.85rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .github-link-btn:hover {
-      border-color: var(--accent-blue);
-      color: #fff;
-      background: #142035;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
     }
     .settings-btn {
-      background: #0e1726;
+      background: transparent;
       border: 1px solid var(--border-color);
       color: var(--text-secondary);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      padding: 0.45rem 0.85rem;
+      padding: 0.35rem 0.75rem;
       border-radius: 0.5rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s;
+      gap: 0.35rem;
     }
     .settings-btn:hover { color: var(--accent-blue); border-color: var(--accent-blue); }
 
@@ -126,16 +96,15 @@
       display: none;
       background: #0d1320;
       border: 1px solid var(--border-color);
-      border-radius: 0.85rem;
+      border-radius: 0.75rem;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
-      animation: fadeIn 0.2s ease-in-out;
     }
     .settings-inputs {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
-      margin-top: 0.6rem;
+      margin-top: 0.5rem;
     }
     @media (max-width: 600px) { .settings-inputs { grid-template-columns: 1fr; } }
     .api-input {
@@ -146,11 +115,9 @@
       color: #fff;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
-      padding: 0.65rem 0.8rem;
+      padding: 0.6rem 0.8rem;
       outline: none;
-      transition: border-color 0.2s;
     }
-    .api-input:focus { border-color: var(--accent-blue); }
 
     /* INPUT & CONFIGURATION CARD */
     .input-box {
@@ -298,7 +265,7 @@
       background: #060910;
       border: 1px solid var(--border-accent);
       border-radius: 1.25rem;
-      padding: 1.75rem;
+      padding: 2rem;
       margin-bottom: 2rem;
       box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
     }
@@ -370,7 +337,6 @@
     .badge-parallel { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); border: 1px solid rgba(56, 189, 248, 0.4); }
     .badge-engine { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
     .badge-gemini { background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.4); }
-    .badge-rose { background: rgba(244, 63, 94, 0.2); color: var(--accent-rose); border: 1px solid rgba(244, 63, 94, 0.4); }
     .log-msg {
       color: #e2e8f0;
       flex-grow: 1;
@@ -380,7 +346,6 @@
     /* RESULTS SCREEN */
     #resultsSection {
       display: none;
-      animation: fadeIn 0.4s ease-in-out;
     }
 
     .top-choices-header {
@@ -389,9 +354,7 @@
       color: #fff;
       margin-bottom: 1rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 0.5rem;
     }
 
@@ -595,43 +558,25 @@
       flex-direction: column;
       justify-content: space-between;
     }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--border-color);
-      padding-top: 1.5rem;
-    }
-    footer a { color: var(--accent-blue); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="top-nav-bar">
-      <a href="https://github.com/watsoncsulahack/agent-film-cost-optimizer" target="_blank" class="github-link-btn">
-        <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-        </svg>
-        <span>GitHub Repository</span>
-      </a>
-      <button class="settings-btn" onclick="toggleSettings()">⚙️ Optional API Keys</button>
-    </div>
-
     <header>
-      <div class="header-badge">⚡ Google ADK Architecture • Gemini 2.5 • Parallel Search</div>
-      <h1>AI Film Cost Optimizer</h1>
-      <p class="subtitle">Autonomous AI video production cost optimizer. Evaluates technical scene constraints, normalizes pricing across 7 AI models, and selects the lowest-cost viable model.</p>
+      <div class="header-badge">⚡ Gemini Agent Platform • ADK • Parallel Search</div>
+      <h1>Cost Optimizer Agent</h1>
+      <p class="subtitle">Autonomous AI Video Production Cost Optimizer & Model Ranker</p>
     </header>
 
+    <div class="settings-bar">
+      <button class="settings-btn" onclick="toggleSettings()">⚙️ API Keys Settings</button>
+    </div>
+
     <div class="settings-panel" id="settingsPanel">
-      <div style="font-weight:700; font-size:0.9rem; color:#fff;">Optional API Keys for Live Cloud Invocations</div>
-      <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">The built-in optimization engine runs 100% locally in your browser. Providing API keys enables live Gemini reasoning and live Parallel Search queries.</p>
+      <div style="font-weight:700; font-size:0.9rem; color:#fff;">Optional API Keys (or set in .env)</div>
       <div class="settings-inputs">
         <div>
-          <label style="font-size:0.78rem; color:var(--text-secondary); display:block; margin-bottom:0.25rem;">GEMINI_API_KEY (for live Google Gemini LLM reasoning)</label>
+          <label style="font-size:0.78rem; color:var(--text-secondary); display:block; margin-bottom:0.25rem;">GEMINI_API_KEY (for Google Gemini reasoning)</label>
           <input type="password" id="geminiKeyInput" class="api-input" placeholder="AIzaSy...">
         </div>
         <div>
@@ -643,7 +588,7 @@
 
     <!-- PROMPT & CONFIGURATION SECTION -->
     <div class="input-box" id="inputBox">
-      <div class="input-heading">🎬 Scene & Shot Description</div>
+      <div class="input-heading">Scene & Shot Description</div>
 
       <div class="prompt-input-wrapper">
         <input type="text" id="shotInput" class="prompt-input" value="Cinematic aerial drone shot sweeping over modern metropolis skyline at golden hour sunset, reflective glass towers" placeholder="Enter cinematic video prompt...">
@@ -652,11 +597,10 @@
 
       <div class="presets-row">
         <span style="font-size:0.78rem; color:var(--text-secondary); font-weight:700;">Presets:</span>
-        <button class="preset-pill active-preset" onclick="setPreset('Cinematic aerial drone shot sweeping over modern metropolis skyline at golden hour sunset, reflective glass towers', this)">🏙️ Drone City Skyline</button>
+        <button class="preset-pill" onclick="setPreset('Cinematic aerial drone shot sweeping over modern metropolis skyline at golden hour sunset, reflective glass towers', this)">🏙️ Drone City Skyline</button>
         <button class="preset-pill" onclick="setPreset('Medium close-up of a cyberpunk detective in neon alley arguing with robot informant in heavy rain', this)">🤖 Cyberpunk Dialogue</button>
         <button class="preset-pill" onclick="setPreset('Slow-motion macro close up of raindrops falling on lush green jungle leaves with atmospheric mist', this)">🌿 Macro Raindrop B-Roll</button>
         <button class="preset-pill" onclick="setPreset('Epic wide shot of snow covered mountains in the swiss alps during blizzard with fast drifting snow', this)">🏔️ Alps Blizzard Wide</button>
-        <button class="preset-pill" onclick="setPreset('High speed tracking shot of sports car drifting through wet asphalt city streets at night', this)">🏎️ Night Car Chase</button>
       </div>
 
       <div class="sliders-grid">
@@ -693,13 +637,13 @@
       <div class="monitor-header">
         <div class="monitor-title">
           <span class="pulse-dot"></span>
-          <span>Agent Process Stream</span>
+          <span>Active Process Stream</span>
         </div>
-        <div style="font-size:0.78rem; color:var(--text-secondary); font-family:'JetBrains Mono';" id="processStatusText">Processing agent reasoning...</div>
+        <div style="font-size:0.78rem; color:var(--text-secondary); font-family:'JetBrains Mono';" id="processStatusText">Processing background tasks...</div>
       </div>
 
       <div class="process-log-container" id="processLogContainer">
-        <!-- Dynamically populated agent execution events -->
+        <!-- Dynamically populated real background events -->
       </div>
     </div>
 
@@ -707,8 +651,8 @@
     <div id="resultsSection">
 
       <div class="top-choices-header">
-        <span style="font-size: 1.3rem; font-weight: 800;">🏆 Top Model Choices</span>
-        <span style="font-size:0.85rem; font-weight:600; color:var(--accent-emerald); background:rgba(16,185,129,0.15); padding:0.25rem 0.75rem; border-radius:9999px;" id="savingsBadge">Saves Up to $0.00</span>
+        <span>🏆 Top Model Choices</span>
+        <span style="font-size:0.85rem; font-weight:600; color:var(--accent-emerald); background:rgba(16,185,129,0.15); padding:0.2rem 0.6rem; border-radius:9999px;" id="savingsBadge">Saves Up to $0.00</span>
       </div>
 
       <!-- 3 TOP CHOICES CARDS -->
@@ -718,7 +662,7 @@
 
       <!-- GEMINI REASONING SYNTHESIS -->
       <div class="section-card">
-        <div class="section-title">🧠 Production Strategy & Tradeoff Analysis</div>
+        <div class="section-title">🧠 Gemini Production Strategy & Tradeoffs</div>
         <div class="gemini-box" id="geminiReasoningBox">
           <!-- Populated dynamically -->
         </div>
@@ -770,413 +714,16 @@
 
       <!-- PARALLEL SEARCH STOCK FOOTAGE DISCOVERY -->
       <div class="section-card">
-        <div class="section-title">🔍 Parallel Search • Stock Footage Discovery</div>
+        <div class="section-title">🔍 Parallel Search API • Stock Footage Discovery</div>
         <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:1rem;">Alternative royalty-free footage to achieve 100% render compute savings:</p>
         <div class="stock-grid" id="stockGrid"></div>
       </div>
 
     </div>
 
-    <footer>
-      <p>CostOptimizerAgent • Google ADK & Gemini Architecture • <a href="https://github.com/watsoncsulahack/agent-film-cost-optimizer" target="_blank">View on GitHub</a></p>
-    </footer>
   </div>
 
   <script>
-    // =========================================================================
-    // 1. MODEL PRICING REGISTRY (7 Approved Models)
-    // =========================================================================
-    const MODEL_PRICING_REGISTRY = {
-      "Veo": {
-        model_name: "Veo",
-        provider: "Google DeepMind / Vertex AI",
-        pricing_type: "Per Second",
-        base_price_display: "$0.15 / sec",
-        rate_per_second_usd: 0.15,
-        quality_score: 9.5,
-        supported_capabilities: [
-          "high_photorealism", "camera_motion_control", "high_motion_adherence",
-          "complex_physics_simulation", "high_frame_consistency", "character_anatomy_consistency",
-          "prompt_adherence"
-        ],
-        strengths: ["Industry-leading cinematic camera control and visual fidelity", "Exceptional fluid and physics simulation"],
-        limitations: ["Higher cost tier ($0.15/sec)", "Strict safety filter on edgy prompts", "No native lip-sync in base pass"]
-      },
-      "Veo-Fast": {
-        model_name: "Veo-Fast",
-        provider: "Google DeepMind / Vertex AI",
-        pricing_type: "Per Second",
-        base_price_display: "$0.08 / sec",
-        rate_per_second_usd: 0.08,
-        quality_score: 8.7,
-        supported_capabilities: [
-          "high_photorealism", "camera_motion_control", "high_motion_adherence",
-          "high_frame_consistency", "prompt_adherence"
-        ],
-        strengths: ["High-speed rendering at nearly half the cost ($0.08/sec)", "Strong cinematic framing"],
-        limitations: ["Reduced physics simulation detail compared to Veo full", "Minor motion blur on extreme high-speed motion"]
-      },
-      "Kling": {
-        model_name: "Kling",
-        provider: "Kuaishou Kling AI",
-        pricing_type: "Credit Based",
-        base_price_display: "35 cr / 5s (@ $0.01/cr)",
-        rate_per_second_usd: 0.07,
-        quality_score: 8.9,
-        supported_capabilities: [
-          "high_photorealism", "high_motion_adherence", "character_anatomy_consistency",
-          "complex_physics_simulation", "high_frame_consistency"
-        ],
-        strengths: ["Outstanding human anatomy, character motion, and facial expressions", "Supports long single generation clips up to 10s"],
-        limitations: ["Camera motion paths can drift on complex multi-axis instructions", "Queue times can fluctuate during peak hours"]
-      },
-      "Kling-Pro": {
-        model_name: "Kling-Pro",
-        provider: "Kuaishou Kling AI",
-        pricing_type: "Credit Based",
-        base_price_display: "70 cr / 10s (@ $0.01/cr)",
-        rate_per_second_usd: 0.07,
-        quality_score: 9.1,
-        supported_capabilities: [
-          "high_photorealism", "high_motion_adherence", "character_anatomy_consistency",
-          "complex_physics_simulation", "high_frame_consistency", "camera_motion_control"
-        ],
-        strengths: ["Enhanced prompt comprehension and superior texture detail", "Exceptional 10s continuous narrative coherence"],
-        limitations: ["Higher credit consumption (70 credits / 10s)", "Fixed clip increments"]
-      },
-      "Runway-Gen3-Turbo": {
-        model_name: "Runway-Gen3-Turbo",
-        provider: "RunwayML",
-        pricing_type: "Credit Based",
-        base_price_display: "5 cr/sec (@ $0.01/cr)",
-        rate_per_second_usd: 0.05,
-        quality_score: 8.8,
-        supported_capabilities: [
-          "high_photorealism", "camera_motion_control", "high_motion_adherence",
-          "high_frame_consistency", "complex_physics_simulation"
-        ],
-        strengths: ["Very cost-effective ($0.05/sec) with ultra-fast generation speed", "Excellent camera motion presets and temporal consistency"],
-        limitations: ["Fast motion can exhibit minor artifacting in complex foliage", "Requires specific camera prompt syntax"]
-      },
-      "Runway-Gen3-Alpha": {
-        model_name: "Runway-Gen3-Alpha",
-        provider: "RunwayML",
-        pricing_type: "Credit Based",
-        base_price_display: "10 cr/sec (@ $0.01/cr)",
-        rate_per_second_usd: 0.10,
-        quality_score: 9.3,
-        supported_capabilities: [
-          "high_photorealism", "camera_motion_control", "high_motion_adherence",
-          "character_anatomy_consistency", "complex_physics_simulation", "high_frame_consistency",
-          "prompt_adherence"
-        ],
-        strengths: ["Hollywood-grade dynamic range, lighting, and cinematic motion fidelity", "Precise camera motion and keyframe control"],
-        limitations: ["Higher cost tier ($0.10/sec)", "Longer queue latency compared to Turbo"]
-      },
-      "Seedance": {
-        model_name: "Seedance",
-        provider: "ByteDance Seedance",
-        pricing_type: "Fixed Generation",
-        base_price_display: "$0.30 / 5s",
-        rate_per_second_usd: 0.06,
-        quality_score: 8.6,
-        supported_capabilities: [
-          "high_photorealism", "high_motion_adherence", "character_anatomy_consistency",
-          "high_frame_consistency"
-        ],
-        strengths: ["Strong character styling and smooth natural motion", "Low fixed cost ($0.30 per 5s shot)"],
-        limitations: ["Limited camera motion customization", "Fixed 5-second generation limit per call"]
-      },
-      "Luma": {
-        model_name: "Luma",
-        provider: "Luma AI (Dream Machine)",
-        pricing_type: "Fixed Generation",
-        base_price_display: "$0.40 / 5s",
-        rate_per_second_usd: 0.08,
-        quality_score: 8.9,
-        supported_capabilities: [
-          "high_photorealism", "camera_motion_control", "complex_physics_simulation",
-          "high_frame_consistency"
-        ],
-        strengths: ["Spectacular camera moves, sweeps, and environmental scale", "Clean visual textures and keyframe extension support"],
-        limitations: ["Fixed $0.40 per 5s shot cost structure", "Fast character movements can occasionally morph"]
-      },
-      "Hailuo": {
-        model_name: "Hailuo",
-        provider: "MiniMax Hailuo AI",
-        pricing_type: "Fixed Generation",
-        base_price_display: "$0.24 / 6s",
-        rate_per_second_usd: 0.04,
-        quality_score: 8.7,
-        supported_capabilities: [
-          "high_photorealism", "character_anatomy_consistency", "high_frame_consistency",
-          "complex_physics_simulation"
-        ],
-        strengths: ["Most cost-effective model in catalog ($0.04/sec)", "Stunning realistic human faces, skin tones, and organic motion"],
-        limitations: ["Lacks fine-grained programmatic camera path controls", "Fixed 6-second clips"]
-      },
-      "MiniMax-H3": {
-        model_name: "MiniMax-H3",
-        provider: "MiniMax",
-        pricing_type: "Fixed Generation",
-        base_price_display: "$0.25 / 5s",
-        rate_per_second_usd: 0.05,
-        quality_score: 8.8,
-        supported_capabilities: [
-          "high_photorealism", "character_anatomy_consistency", "complex_physics_simulation",
-          "high_frame_consistency", "prompt_adherence"
-        ],
-        strengths: ["Remarkable price-to-performance ratio ($0.05/sec)", "Excellent prompt adherence and physics interaction"],
-        limitations: ["Camera movement is determined primarily from text prompt without direct velocity curve controls"]
-      }
-    };
-
-    // =========================================================================
-    // 2. 9-STEP COST OPTIMIZATION ENGINE (Client-Side Pure Implementation)
-    // =========================================================================
-
-    function analyzeShotRequirements(shotDescription) {
-      const desc = shotDescription.trim().toLowerCase();
-
-      // Subject classification
-      const characterKeywords = ["person", "man", "woman", "detective", "robot", "girl", "boy", "face", "talking", "arguing", "crowd", "people", "warrior", "actor", "interview"];
-      const hasCharacter = characterKeywords.some(k => desc.includes(k));
-      const hasDialogue = ["talking", "arguing", "speaking", "dialogue", "conversation", "interview", "saying", "whispering"].some(k => desc.includes(k));
-      const isMacro = ["macro", "close up", "close-up", "raindrop", "leaves", "eye", "texture", "drop", "extreme close"].some(k => desc.includes(k));
-      const isLandscape = ["skyline", "city", "mountains", "alps", "ocean", "beach", "sunset", "aerial", "drone", "forest", "desert", "landscape", "valley"].some(k => desc.includes(k));
-
-      let subjectType = "action_vfx";
-      if (hasDialogue) subjectType = "character_dialogue";
-      else if (hasCharacter) subjectType = "character";
-      else if (isMacro) subjectType = "macro_texture";
-      else if (isLandscape) subjectType = "landscape_environment";
-
-      // Camera movement
-      let cameraMovement = "cinematic_static";
-      let requiresCameraControl = false;
-      if (["drone", "aerial", "sweeping", "bird's eye", "overhead"].some(k => desc.includes(k))) {
-        cameraMovement = "drone_aerial";
-        requiresCameraControl = true;
-      } else if (["tracking", "follow", "chase", "steadicam"].some(k => desc.includes(k))) {
-        cameraMovement = "tracking_follow";
-        requiresCameraControl = true;
-      } else if (["orbit", "pan", "panning", "tilt", "rotating"].some(k => desc.includes(k))) {
-        cameraMovement = "orbit_pan";
-        requiresCameraControl = true;
-      } else if (["dolly", "zoom", "push in", "pull out"].some(k => desc.includes(k))) {
-        cameraMovement = "dolly_zoom";
-        requiresCameraControl = true;
-      } else if (["handheld", "shaky", "documentary"].some(k => desc.includes(k))) {
-        cameraMovement = "handheld";
-      }
-
-      // Motion dynamics
-      let motionDynamics = "moderate_motion";
-      if (["fast", "running", "chase", "explosion", "fight", "blizzard", "storm", "racing", "speeding", "flying"].some(k => desc.includes(k))) {
-        motionDynamics = "high_speed_action";
-      } else if (["slow motion", "slow-motion", "slowmo", "macro", "falling raindrops", "gentle"].some(k => desc.includes(k))) {
-        motionDynamics = "slow_cinematic";
-      }
-
-      // Physics
-      let requiresComplexPhysics = false;
-      let physicsComplexity = "standard";
-      if (["rain", "raindrops", "water", "fluid", "smoke", "fire", "particles", "snow", "blizzard", "splash", "waves"].some(k => desc.includes(k))) {
-        requiresComplexPhysics = true;
-        physicsComplexity = "complex_fluid_particles";
-      } else if (["car", "vehicle", "spaceship", "robot", "cyberpunk"].some(k => desc.includes(k))) {
-        requiresComplexPhysics = true;
-        physicsComplexity = "rigid_body_vehicles";
-      }
-
-      // Photorealism
-      const requiresPhotorealism = !["anime", "cartoon", "cgi", "illustration", "painting", "claymation", "3d render"].some(k => desc.includes(k));
-
-      // Build Essential Capabilities
-      const essentialCaps = [];
-      if (requiresPhotorealism) essentialCaps.push("high_photorealism");
-      if (requiresCameraControl) essentialCaps.push("camera_motion_control");
-      if (motionDynamics === "high_speed_action") essentialCaps.push("high_motion_adherence");
-      else if (motionDynamics === "slow_cinematic") essentialCaps.push("high_frame_consistency");
-      if (requiresComplexPhysics) essentialCaps.push("complex_physics_simulation");
-      if (hasCharacter) essentialCaps.push("character_anatomy_consistency");
-      if (hasDialogue) essentialCaps.push("lip_sync_and_audio");
-
-      return {
-        shot_description: shotDescription,
-        subject_type: subjectType,
-        motion_dynamics: motionDynamics,
-        camera_movement: cameraMovement,
-        lighting_style: (desc.includes("neon") || desc.includes("golden")) ? "dramatic_cinematic" : "natural_ambient",
-        physics_complexity: physicsComplexity,
-        character_count: hasDialogue ? 2 : (hasCharacter ? 1 : 0),
-        requires_human_face_consistency: hasCharacter,
-        requires_character_dialogue: hasDialogue,
-        requires_camera_control: requiresCameraControl,
-        requires_complex_physics: requiresComplexPhysics,
-        requires_photorealism: requiresPhotorealism,
-        essential_capabilities: essentialCaps,
-      };
-    }
-
-    function runCostEngine(shotReqs, durationSeconds, rerunMultiplier) {
-      const essentialCaps = shotReqs.essential_capabilities || [];
-      const evaluated = [];
-
-      for (const [key, spec] of Object.entries(MODEL_PRICING_REGISTRY)) {
-        const ratePerSec = spec.rate_per_second_usd;
-        const singleCost = Math.round(ratePerSec * durationSeconds * 1000) / 1000;
-        const totalCost = Math.round(singleCost * rerunMultiplier * 100) / 100;
-
-        // Check suitability
-        const missing = essentialCaps.filter(c => !spec.supported_capabilities.includes(c));
-        const isViable = missing.length === 0;
-        let elimReason = null;
-        if (!isViable) {
-          const readable = missing.map(c => c.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())).join(', ');
-          elimReason = `Lacks essential capability: ${readable}`;
-        }
-
-        evaluated.push({
-          model_name: spec.model_name,
-          provider: spec.provider,
-          pricing_type: spec.pricing_type,
-          base_price_display: spec.base_price_display,
-          rate_per_second_usd: ratePerSec,
-          single_shot_cost_usd: singleCost,
-          total_estimated_cost_usd: totalCost,
-          quality_score: spec.quality_score,
-          is_viable: isViable,
-          elimination_reason: elimReason,
-          missing_capabilities: missing,
-          strengths: spec.strengths,
-          limitations: spec.limitations,
-          tradeoff_summary: `${spec.strengths[0]} | Limitation: ${spec.limitations[0]}`
-        });
-      }
-
-      let viable = evaluated.filter(m => m.is_viable);
-      let eliminated = evaluated.filter(m => !m.is_viable);
-
-      if (viable.length === 0) {
-        viable = [...evaluated];
-        eliminated = [];
-      }
-
-      viable.sort((a, b) => {
-        if (a.rate_per_second_usd !== b.rate_per_second_usd) {
-          return a.rate_per_second_usd - b.rate_per_second_usd;
-        }
-        return b.quality_score - a.quality_score;
-      });
-
-      viable.forEach((item, idx) => { item.rank = idx + 1; });
-
-      const recommended = viable[0];
-      const highest = evaluated.reduce((prev, current) => (prev.total_estimated_cost_usd > current.total_estimated_cost_usd) ? prev : current);
-      const lowestCost = recommended.total_estimated_cost_usd;
-      const savings = Math.round((highest.total_estimated_cost_usd - lowestCost) * 100) / 100;
-
-      let tradeoffExp = "";
-      if (recommended.model_name === highest.model_name) {
-        tradeoffExp = `Model '${recommended.model_name}' is the top choice with maximum capability adherence.`;
-      } else {
-        const pct = Math.round((savings / highest.total_estimated_cost_usd) * 100);
-        tradeoffExp = `Choosing '${recommended.model_name}' ($${lowestCost.toFixed(2)}) over highest-tier '${highest.model_name}' ($${highest.total_estimated_cost_usd.toFixed(2)}) saves $${savings.toFixed(2)} (${pct}% budget reduction). Tradeoff: You gain maximum cost-efficiency, but accept ${recommended.limitations[0].toLowerCase()}.`;
-      }
-
-      const isLandscape = ["landscape_environment", "macro_texture"].includes(shotReqs.subject_type);
-      const stockPotential = isLandscape ? "High (90%+ match likelihood for stock b-roll replacement)" : "Moderate/Low (Requires generative character/action performance)";
-
-      return {
-        shot_description: shotReqs.shot_description,
-        duration_seconds: durationSeconds,
-        rerun_multiplier: rerunMultiplier,
-        essential_capabilities: essentialCaps,
-        viable_models: viable,
-        eliminated_models: eliminated,
-        top_3_choices: viable.slice(0, 3),
-        recommended_model: recommended,
-        lowest_cost_viable_usd: lowestCost,
-        highest_tier_cost_usd: highest.total_estimated_cost_usd,
-        projected_savings_usd: savings,
-        tradeoff_explanation: tradeoffExp,
-        stock_replacement_potential: stockPotential,
-      };
-    }
-
-    function generateStockResults(shotDescription) {
-      const q = encodeURIComponent(shotDescription.split(' ').slice(0, 4).join(' '));
-      return [
-        {
-          title: `4K Stock Footage: ${shotDescription.slice(0, 45)}...`,
-          url: `https://www.pexels.com/search/videos/${q}`,
-          source: "Pexels Video (CC0 / Free Commercial)",
-          excerpts: `Cinematic 4K UHD video plate matching '${shotDescription.slice(0, 40)}'. Neutral color grade ready for color matching.`,
-        },
-        {
-          title: `Production B-Roll: ${shotDescription.slice(0, 40)}`,
-          url: `https://pixabay.com/videos/search/${q}`,
-          source: "Pixabay Video Archive",
-          excerpts: `Royalty-free high bitrate video capture. Smooth 60fps available for slow-motion retiming in post-production.`,
-        },
-        {
-          title: `Studio VFX Plate: ${shotDescription.slice(0, 38)}`,
-          url: `https://storyblocks.com/video/search/${q}`,
-          source: "Storyblocks Video Library",
-          excerpts: `ProRes 422 production background plate. Ideal for VFX composite layers, sky replacements, and timeline insertions.`,
-        }
-      ];
-    }
-
-    async function tryLiveGeminiReasoning(apiKey, shotDesc, duration, rerun, viable, eliminated) {
-      if (!apiKey) return null;
-      try {
-        const prompt = `You are the CostOptimizerAgent, an expert AI video production cost optimizer.
-
-Analyze this desired video shot and evaluate the ranked video models:
-- Desired Shot: "${shotDesc}"
-- Planned Duration: ${duration} seconds
-- Rerun Iteration Multiplier: ${rerun}x
-
-Viable Models (calculated from lowest to highest cost):
-${JSON.stringify(viable.map(m => ({ rank: m.rank, model: m.model_name, provider: m.provider, rate_per_sec: m.rate_per_second_usd, total_cost: m.total_estimated_cost_usd, strengths: m.strengths, limitations: m.limitations })), null, 2)}
-
-Eliminated Models (unsuitable due to capability mismatch):
-${JSON.stringify(eliminated.map(m => ({ model: m.model_name, elimination_reason: m.elimination_reason })), null, 2)}
-
-Please provide a concise, expert analysis formatted with the following markdown sections:
-1. **🎬 Shot Complexity & Essential Capabilities**: Break down what makes this shot technically challenging.
-2. **⚖️ Tradeoff Explanation**: Explain the concrete tradeoffs between the lowest-cost viable model and the higher-tier options.
-3. **🚀 Production Recommendation**: Give specific, actionable advice for a filmmaker on how to execute this shot with maximum budget efficiency.`;
-
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-        const resp = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.7 }
-          })
-        });
-
-        if (resp.ok) {
-          const data = await resp.json();
-          const txt = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (txt) {
-            return { used_gemini: true, model_used: "Gemini 2.5 Flash", reasoning: txt };
-          }
-        }
-      } catch (e) {
-        console.warn("Live Gemini API call failed:", e);
-      }
-      return null;
-    }
-
-    // =========================================================================
-    // 3. UI CONTROLLER & EVENT TIMELINE
-    // =========================================================================
-
     function toggleSettings() {
       const p = document.getElementById('settingsPanel');
       p.style.display = p.style.display === 'block' ? 'none' : 'block';
@@ -1199,19 +746,6 @@ Please provide a concise, expert analysis formatted with the following markdown 
       document.getElementById('fpsVal').innerText = document.getElementById('fpsSlider').value + ' FPS';
     }
 
-    function addProcessLogEvent(timeStr, service, msg, badgeClass) {
-      const logBox = document.getElementById('processLogContainer');
-      const row = document.createElement('div');
-      row.className = 'log-row';
-      row.innerHTML = `
-        <span class="log-time">${timeStr}</span>
-        <span class="log-badge ${badgeClass}">${service}</span>
-        <span class="log-msg">${msg}</span>
-      `;
-      logBox.appendChild(row);
-      logBox.scrollTop = logBox.scrollHeight;
-    }
-
     async function executeCostOptimization() {
       const shot = document.getElementById('shotInput').value.trim();
       if (!shot) {
@@ -1232,72 +766,107 @@ Please provide a concise, expert analysis formatted with the following markdown 
       monitor.style.display = 'block';
       document.getElementById('resultsSection').style.display = 'none';
       logBox.innerHTML = '';
-      statusText.innerText = 'Initializing agent reasoning...';
+      statusText.innerText = 'Initializing background tasks...';
 
       monitor.scrollIntoView({ behavior: 'smooth' });
 
-      // Simulate step-by-step ADK timeline
-      addProcessLogEvent('+0.00s', 'Agent Runner', 'Initializing CostOptimizerAgent with Google ADK framework...', 'badge-analyzer');
-      await new Promise(r => setTimeout(r, 120));
+      // Add initial client-side task event
+      addProcessLogEvent('+0.00s', 'Client', 'Dispatching request to CostOptimizerAgent backend...', 'badge-analyzer');
 
-      addProcessLogEvent('+0.15s', 'Shot Analyzer', 'Deconstructing prompt into subject, camera, and physics dimensions...', 'badge-analyzer');
-      const reqs = analyzeShotRequirements(shot);
-      await new Promise(r => setTimeout(r, 150));
+      try {
+        const startTime = Date.now();
+        const endpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.origin.includes('run.app'))
+          ? '/api/analyze'
+          : 'https://agent-film-cost-optimizer-709949980336.us-central1.run.app/api/analyze';
 
-      addProcessLogEvent(
-        '+0.28s',
-        'Shot Analyzer',
-        `Extracted: Subject='${reqs.subject_type}', Camera='${reqs.camera_movement}', Motion='${reqs.motion_dynamics}', Physics='${reqs.physics_complexity}'`,
-        'badge-analyzer'
-      );
-      await new Promise(r => setTimeout(r, 140));
+        const resPromise = fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            shot_description: shot,
+            duration_seconds: duration,
+            rerun_multiplier: rerun,
+            fps: fps,
+            gemini_api_key: geminiKey || undefined,
+            parallel_api_key: parallelKey || undefined
+          })
+        });
 
-      addProcessLogEvent('+0.42s', 'Parallel Search', `Querying provider intelligence for 7 approved video models...`, 'badge-parallel');
-      await new Promise(r => setTimeout(r, 180));
+        // Add periodic live status indicators while waiting
+        const progressTicker = setInterval(() => {
+          const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+          statusText.innerText = `Processing background tasks (${elapsed}s elapsed)...`;
+        }, 300);
 
-      const stockResults = generateStockResults(shot);
-      addProcessLogEvent('+0.61s', 'Parallel Search', `Discovered ${stockResults.length} matching 4K stock b-roll clips and VFX plates`, 'badge-parallel');
-      await new Promise(r => setTimeout(r, 150));
+        const res = await resPromise;
+        clearInterval(progressTicker);
 
-      addProcessLogEvent('+0.75s', 'Cost Engine', `Normalizing rates to $/second and evaluating capability suitability...`, 'badge-engine');
-      const evaluation = runCostEngine(reqs, duration, rerun);
-      await new Promise(r => setTimeout(r, 160));
+        if (geminiKey) localStorage.setItem('GEMINI_API_KEY', geminiKey);
+        if (parallelKey) localStorage.setItem('PARALLEL_API_KEY', parallelKey);
 
-      addProcessLogEvent(
-        '+0.92s',
-        'Cost Engine',
-        `Evaluated: ${evaluation.viable_models.length} Viable, ${evaluation.eliminated_models.length} Disqualified. Winning model: '${evaluation.recommended_model.model_name}' ($${evaluation.lowest_cost_viable_usd.toFixed(2)})`,
-        'badge-engine'
-      );
-      await new Promise(r => setTimeout(r, 180));
-
-      // Gemini Reasoning
-      let geminiData = null;
-      if (geminiKey) {
-        addProcessLogEvent('+1.10s', 'Google Gemini', 'Invoking Gemini 2.5 Flash for live production reasoning & tradeoffs...', 'badge-gemini');
-        geminiData = await tryLiveGeminiReasoning(geminiKey, shot, duration, rerun, evaluation.viable_models, evaluation.eliminated_models);
-        if (geminiData) {
-          addProcessLogEvent('+1.85s', 'Google Gemini', 'Received structured analysis from Gemini 2.5 Flash', 'badge-gemini');
-        } else {
-          addProcessLogEvent('+1.40s', 'Google Gemini', 'Falling back to deterministic production strategy generator', 'badge-gemini');
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          const errMsg = errData.detail || ('Request failed (' + res.status + '): ' + res.statusText);
+          throw new Error(errMsg);
         }
-      } else {
-        addProcessLogEvent('+1.05s', 'Strategy Engine', 'Generated deterministic production reasoning & tradeoff breakdown', 'badge-gemini');
+        const data = await res.json();
+
+        // Stream in the actual timeline events returned from the backend
+        const timeline = data.execution_timeline || [];
+        for (const evt of timeline) {
+          let badgeClass = 'badge-analyzer';
+          if (evt.service.includes('Parallel')) badgeClass = 'badge-parallel';
+          else if (evt.service.includes('Cost Engine')) badgeClass = 'badge-engine';
+          else if (evt.service.includes('Gemini') || evt.service.includes('Analyzer')) badgeClass = 'badge-gemini';
+
+          addProcessLogEvent(evt.timestamp, evt.service, evt.message, badgeClass);
+          await new Promise(r => setTimeout(r, 60));
+        }
+
+        statusText.innerText = 'Completed in ' + (((Date.now() - startTime) / 1000).toFixed(2)) + 's';
+
+        await new Promise(r => setTimeout(r, 150));
+
+        // Render results
+        document.getElementById('resultsSection').style.display = 'block';
+        renderResults(data);
+        document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+
+      } catch (err) {
+        statusText.innerText = 'Error: ' + err.message;
+        addProcessLogEvent('+ERROR', 'Auth/Execution Error', err.message, 'badge-rose');
+        // Open settings drawer if missing API key
+        if (err.message.includes('API') || err.message.includes('Authentication') || err.message.includes('key')) {
+          document.getElementById('settingsPanel').style.display = 'block';
+        }
       }
-
-      addProcessLogEvent('+1.20s', 'System', 'Optimization workflow complete. Rendering comparison dashboard.', 'badge-engine');
-      statusText.innerText = 'Optimization Complete';
-
-      await new Promise(r => setTimeout(r, 200));
-
-      // Render Results
-      document.getElementById('resultsSection').style.display = 'block';
-      renderResults(evaluation, stockResults, geminiData);
-      document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function renderResults(evalData, stockItems, gemini) {
+    document.addEventListener('DOMContentLoaded', () => {
+      const g = localStorage.getItem('GEMINI_API_KEY');
+      const p = localStorage.getItem('PARALLEL_API_KEY');
+      if (g) document.getElementById('geminiKeyInput').value = g;
+      if (p) document.getElementById('parallelKeyInput').value = p;
+    });
+
+    function addProcessLogEvent(timeStr, service, msg, badgeClass) {
+      const logBox = document.getElementById('processLogContainer');
+      const row = document.createElement('div');
+      row.className = 'log-row';
+      row.innerHTML = `
+        <span class="log-time">${timeStr}</span>
+        <span class="log-badge ${badgeClass}">${service}</span>
+        <span class="log-msg">${msg}</span>
+      `;
+      logBox.appendChild(row);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function renderResults(data) {
+      const evalData = data.evaluation;
       const top3 = evalData.top_3_choices || [];
+      const gemini = data.gemini_reasoning;
+
       document.getElementById('savingsBadge').innerText = 'Saves Up to $' + evalData.projected_savings_usd.toFixed(2) + ' vs High Tier';
 
       // Render Top 3 Choice Cards
@@ -1334,7 +903,7 @@ Please provide a concise, expert analysis formatted with the following markdown 
         topGrid.appendChild(card);
       });
 
-      // Render Gemini / Strategic Reasoning Box
+      // Render Gemini Reasoning Box
       const geminiBox = document.getElementById('geminiReasoningBox');
       if (gemini && gemini.used_gemini && gemini.reasoning) {
         geminiBox.innerHTML = `
@@ -1346,14 +915,12 @@ Please provide a concise, expert analysis formatted with the following markdown 
       } else {
         geminiBox.innerHTML = `
           <div style="font-size:0.8rem; color:var(--accent-amber); font-weight:700; margin-bottom:0.75rem;">
-            💡 Production Cost Analysis & Strategy
+            💡 Production Cost Analysis
           </div>
           <h3>🎬 Technical Requirements & Strategy</h3>
           <p>This shot was analyzed across technical motion, lighting, and physics dimensions. For a ${evalData.duration_seconds}s shot with ~${evalData.rerun_multiplier}x trial iterations, <strong>${evalData.recommended_model ? evalData.recommended_model.model_name : 'the winning model'}</strong> delivers the highest cost-to-performance ratio.</p>
           <h3>⚖️ Tradeoff Breakdown</h3>
           <p>${evalData.tradeoff_explanation}</p>
-          <h3>🚀 Production Recommendation</h3>
-          <p>Execute your initial draft passes on <strong>${evalData.recommended_model.model_name}</strong>. If extreme cinematic fidelity or complex fluid dynamics require higher-tier control, upscale final selects using specialized enhancement passes rather than full re-generations.</p>
         `;
       }
 
@@ -1417,6 +984,7 @@ Please provide a concise, expert analysis formatted with the following markdown 
       // Render Parallel Search Stock Footage
       const stockGrid = document.getElementById('stockGrid');
       stockGrid.innerHTML = '';
+      const stockItems = (data.stock_discovery && data.stock_discovery.results) ? data.stock_discovery.results : [];
       stockItems.forEach(item => {
         const card = document.createElement('div');
         card.className = 'stock-card';

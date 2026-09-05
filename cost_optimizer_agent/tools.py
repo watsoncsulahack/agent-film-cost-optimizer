@@ -52,7 +52,7 @@ def parallel_search_video_footage(
     Returns:
         A dictionary containing the search results, source URLs, excerpts, and cost-saving opportunities.
     """
-    key = api_key or os.environ.get("PARALLEL_API_KEY", PARALLEL_API_KEY).strip()
+    key = (api_key if api_key is not None else os.environ.get("PARALLEL_API_KEY", "")).strip()
 
     objective = (
         search_objective
@@ -69,53 +69,9 @@ def parallel_search_video_footage(
     }
 
     if not key:
-        logger.info("PARALLEL_API_KEY not configured. Returning simulated footage discovery data.")
-        return {
-            "status": "simulated_success",
-            "message": "PARALLEL_API_KEY environment variable is not set. Providing sample discovery results for demonstration.",
-            "shot_description": shot_description,
-            "objective": objective,
-            "queries_used": queries,
-            "results": [
-                {
-                    "title": f"4K Stock Footage: {shot_description[:45]}",
-                    "url": "https://www.pexels.com/search/videos/" + "+".join(shot_description.split()[:3]),
-                    "source": "Pexels Video (CC0 / Free Commercial)",
-                    "license_type": "Royalty-Free Commercial",
-                    "resolution": "3840x2160 (4K)",
-                    "excerpts": f"High quality cinematic footage matching '{shot_description}'. Clean camera movement, neutral color profile.",
-                    "estimated_stock_cost_usd": 0.0,
-                    "replacement_feasibility": "High",
-                },
-                {
-                    "title": f"Cinematic B-Roll Clip - {shot_description[:35]}",
-                    "url": "https://pixabay.com/videos/search/" + "+".join(shot_description.split()[:2]),
-                    "source": "Pixabay Video Archive",
-                    "license_type": "Free for Commercial Use",
-                    "resolution": "1080p / 4K UHD",
-                    "excerpts": f"B-roll clip capturing scenes of {shot_description}. 60fps available for slow motion.",
-                    "estimated_stock_cost_usd": 0.0,
-                    "replacement_feasibility": "High",
-                },
-                {
-                    "title": f"Studio Production Plate: {shot_description[:40]}",
-                    "url": "https://storyblocks.com/video/search/" + "+".join(shot_description.split()[:3]),
-                    "source": "Storyblocks Video",
-                    "license_type": "Subscription Unlimited",
-                    "resolution": "4K ProRes 422",
-                    "excerpts": f"Professional production plate for {shot_description}. Ideal for VFX background plates and timeline insertions.",
-                    "estimated_stock_cost_usd": 0.15,
-                    "replacement_feasibility": "Moderate to High",
-                },
-            ],
-            "cost_analysis": {
-                "estimated_ai_gen_cost_per_sec_usd": normalize_price_to_dollars_per_second(ESTIMATED_AI_GEN_COST_PER_SEC, unit="second"),
-                "estimated_ai_gen_cost_total_usd": round(normalize_price_to_dollars_per_second(ESTIMATED_AI_GEN_COST_PER_SEC, unit="second") * DEFAULT_SHOT_DURATION_SEC * AVG_RERUN_MULTIPLIER, 2),
-                "stock_cost_usd": 0.05,
-                "net_savings_usd": round(normalize_price_to_dollars_per_second(ESTIMATED_AI_GEN_COST_PER_SEC, unit="second") * DEFAULT_SHOT_DURATION_SEC * AVG_RERUN_MULTIPLIER - 0.05, 2),
-                "recommendation": "Use existing stock footage or hybrid VFX plate to reduce cost and rendering time.",
-            },
-        }
+        raise ValueError(
+            "PARALLEL_API_KEY is strictly required. Please set PARALLEL_API_KEY in your environment, .env file, or pass it in the request."
+        )
 
     headers = {
         "x-api-key": key,

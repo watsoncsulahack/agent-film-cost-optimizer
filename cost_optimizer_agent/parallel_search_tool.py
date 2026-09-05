@@ -35,7 +35,7 @@ def search_video_models_and_pricing(
     Returns:
         Dict containing search results, model intelligence, and source URLs.
     """
-    key = api_key or os.environ.get("PARALLEL_API_KEY", PARALLEL_API_KEY).strip()
+    key = (api_key if api_key is not None else os.environ.get("PARALLEL_API_KEY", "")).strip()
     models_to_check = target_models if target_models else list(MODEL_PRICING_REGISTRY.keys())
 
     objective = f"Retrieve latest pricing, capabilities, limitations, and availability for AI video models: {', '.join(models_to_check)}. Context: {query}"
@@ -45,32 +45,9 @@ def search_video_models_and_pricing(
     ]
 
     if not key:
-        logger.info("PARALLEL_API_KEY not configured. Returning grounded model intelligence data from registry.")
-        model_info_cards = []
-        for name in models_to_check:
-            if name in MODEL_PRICING_REGISTRY:
-                spec = MODEL_PRICING_REGISTRY[name]
-                model_info_cards.append({
-                    "model_name": spec.model_name,
-                    "provider": spec.provider,
-                    "pricing_type": spec.pricing_type,
-                    "normalized_rate_per_sec": spec.normalize(),
-                    "max_resolution": spec.max_resolution,
-                    "availability": spec.availability,
-                    "strengths": spec.strengths,
-                    "limitations": spec.limitations,
-                    "supported_capabilities": spec.supported_capabilities,
-                    "quality_score": spec.quality_score,
-                })
-
-        return {
-            "status": "grounded_catalog",
-            "source": "Parallel API Registry Cache",
-            "objective": objective,
-            "queries_used": search_queries,
-            "models_evaluated": len(model_info_cards),
-            "model_intelligence": model_info_cards,
-        }
+        raise ValueError(
+            "PARALLEL_API_KEY is strictly required. Please set PARALLEL_API_KEY in your environment, .env file, or pass it in the request."
+        )
 
     headers = {
         "x-api-key": key,

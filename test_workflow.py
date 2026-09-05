@@ -20,10 +20,20 @@ def test_tool_1_shot_analysis():
     assert "character_anatomy_consistency" in reqs_char["essential_capabilities"]
 
 
-def test_tool_2_parallel_search():
-    res = search_video_models_and_pricing("Google Veo Vertex AI pricing capabilities limitations")
-    assert res["status"] in ("grounded_catalog", "live_success")
-    assert "model_intelligence" in res or "raw_results" in res
+import pytest
+from cost_optimizer_agent.gemini_service import run_gemini_shot_reasoning
+
+
+def test_tool_2_parallel_search_missing_key_raises_error(monkeypatch):
+    monkeypatch.delenv("PARALLEL_API_KEY", raising=False)
+    with pytest.raises(ValueError, match="PARALLEL_API_KEY is strictly required"):
+        search_video_models_and_pricing("Google Veo Vertex AI pricing capabilities limitations", api_key="")
+
+
+def test_gemini_service_missing_key_raises_error(monkeypatch):
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    with pytest.raises(ValueError, match="GEMINI_API_KEY is strictly required"):
+        run_gemini_shot_reasoning("drone shot", 5.0, 2.0, [], [], api_key="")
 
 
 def test_cost_engine_elimination_and_ranking():

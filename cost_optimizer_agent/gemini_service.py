@@ -37,13 +37,11 @@ def run_gemini_shot_reasoning(
     Returns:
         Dict with Gemini's detailed reasoning, tradeoff breakdown, and advice.
     """
-    key = api_key or os.environ.get("GEMINI_API_KEY", "").strip()
+    key = (api_key or os.environ.get("GEMINI_API_KEY", "")).strip()
     if not key:
-        return {
-            "used_gemini": False,
-            "message": "GEMINI_API_KEY not configured. Set GEMINI_API_KEY in .env or the UI settings to enable live Gemini LLM reasoning.",
-            "reasoning": None,
-        }
+        raise ValueError(
+            "GEMINI_API_KEY is strictly required. Please set GEMINI_API_KEY in your environment, .env file, or pass it in the request."
+        )
 
     client = genai.Client(api_key=key)
 

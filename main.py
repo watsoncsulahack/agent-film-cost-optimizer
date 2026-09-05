@@ -77,14 +77,19 @@ async def main():
         run_tool_only(shot)
         return
 
-    if args.shot:
-        api_key = os.environ.get("GEMINI_API_KEY")
-        if not api_key:
-            print("[Notice] GEMINI_API_KEY is not set. Showing Parallel Search API tool output directly.\n")
-            run_tool_only(args.shot)
-            return
+    gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    parallel_key = os.environ.get("PARALLEL_API_KEY", "").strip()
 
-        runner = InMemoryRunner(agent=root_agent)
+    if not gemini_key:
+        print("ERROR: GEMINI_API_KEY environment variable is required. Please set it in .env or your shell environment.")
+        sys.exit(1)
+    if not parallel_key:
+        print("ERROR: PARALLEL_API_KEY environment variable is required. Please set it in .env or your shell environment.")
+        sys.exit(1)
+
+    runner = InMemoryRunner(agent=root_agent)
+
+    if args.shot:
         await run_agent_query(runner, args.shot)
         return
 
@@ -93,18 +98,9 @@ async def main():
     print("  CostOptimizerAgent - Google ADK with Parallel Search API Integration")
     print("=======================================================================")
 
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key:
-        print("\nNote: GEMINI_API_KEY is not set in environment.")
-        print("Demonstrating Parallel Search API tool on sample AI-video shot descriptions:\n")
-        for idx, sample in enumerate(SAMPLE_SHOTS, 1):
-            print(f"\n--- Sample {idx}: {sample['title']} ---")
-            run_tool_only(sample["description"])
-    else:
-        runner = InMemoryRunner(agent=root_agent)
-        for idx, sample in enumerate(SAMPLE_SHOTS, 1):
-            print(f"\n--- Sample {idx}: {sample['title']} ---")
-            await run_agent_query(runner, sample["description"], session_id=f"session_{idx}")
+    for idx, sample in enumerate(SAMPLE_SHOTS, 1):
+        print(f"\n--- Sample {idx}: {sample['title']} ---")
+        await run_agent_query(runner, sample["description"], session_id=f"session_{idx}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,25 @@
+# Secrets and environment variables
+.env
+*.key
+*.pem
+
+# Python virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# OS artifacts
+.DS_Store
+Thumbs.db

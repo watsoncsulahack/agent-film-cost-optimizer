@@ -11,8 +11,13 @@
 ---
 
 > 🚀 **Live Hosted Application**: **[https://agent-film-cost-optimizer-709949980336.us-central1.run.app](https://agent-film-cost-optimizer-709949980336.us-central1.run.app)**  
+> 🏛️ **ClickHouse MCP Database Explorer**: **[https://agent-film-cost-optimizer-709949980336.us-central1.run.app/database](https://agent-film-cost-optimizer-709949980336.us-central1.run.app/database)**  
 > 🔗 **Sibling Repository (ClickHouse Track)**: **[agent-film-cost-optimizer-telemetry](https://github.com/watsoncsulahack/agent-film-cost-optimizer-telemetry)**  
 > 🏆 **Built for**: *Agentic Cinema: The Blockbuster Hackathon* (Parallel Track)
+
+---
+
+> ⚠️ **Demonstration & Simulation Notice**: This system models autonomous AI agent compute micro-transactions (Google AP2 mandate compliance) and empirical defect telemetry for the *Agentic Cinema Blockbuster Hackathon*. All wallet balances ($10.0000), agent payment authorizations, and API cost debits are **100% simulated in software**. No actual fiat money, credit cards, or external payment rails are charged.
 
 ---
 

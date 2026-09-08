@@ -1,17 +1,18 @@
 # 🎬 Cost Optimizer Agent
 ### Autonomous AI Video Production Cost Optimizer & Model Ranker
 
-[![Google Cloud Run](https://img.shields.io/badge/Google_Cloud_Run-Deployed-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://agent-film-cost-optimizer-709949980336.us-central1.run.app)
+[![Google Cloud Run](https://img.shields.io/badge/Google_Cloud_Run-Live_App-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://agent-film-cost-optimizer-709949980336.us-central1.run.app)
+[![Agentic Cinema](https://img.shields.io/badge/Hackathon-Agentic_Cinema_Parallel_Track-FF6B6B?style=for-the-badge)](https://agentic-cinema.devpost.com/rules)
 [![Google Gemini](https://img.shields.io/badge/Google_Gemini-2.5_Flash-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://ai.google.dev/)
-[![Google ADK](https://img.shields.io/badge/Google_ADK-1.18+-34A853?style=for-the-badge&logo=google&logoColor=white)](https://github.com/google/adk)
+[![Google ADK](https://img.shields.io/badge/Google_ADK-1.18+-34A853?style=for-the-badge&logo=google&logoColor=white)](https://github.com/google/agent-development-kit)
 [![Parallel Search API](https://img.shields.io/badge/Parallel_Search_API-Integrated-000000?style=for-the-badge&logo=search&logoColor=white)](https://parallel.ai)
-[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/Pytest-30_Passed-10B981?style=for-the-badge&logo=pytest&logoColor=white)](https://pytest.org/)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge)](LICENSE)
 
 ---
 
-> 🚀 **Live Hosted Web Application**: **[https://agent-film-cost-optimizer-709949980336.us-central1.run.app](https://agent-film-cost-optimizer-709949980336.us-central1.run.app)**  
-> 🏆 **Built for**: *Agentic Cinema: The Blockbuster Hackathon*
+> 🚀 **Live Hosted Application**: **[https://agent-film-cost-optimizer-709949980336.us-central1.run.app](https://agent-film-cost-optimizer-709949980336.us-central1.run.app)**  
+> 🔗 **Sibling Repository (ClickHouse Track)**: **[agent-film-cost-optimizer-telemetry](https://github.com/watsoncsulahack/agent-film-cost-optimizer-telemetry)**  
+> 🏆 **Built for**: *Agentic Cinema: The Blockbuster Hackathon* (Parallel Track)
 
 ---
 
@@ -28,68 +29,55 @@ AI video generation compute costs escalate exponentially during film production.
 ## 🏛️ System Architecture
 
 ```
-                                  🎬 FILMMAKER
-                                        │
-                                        ▼
-                  ┌───────────────────────────────────────────┐
-                  │   FastAPI Web App / Google ADK Runner     │
-                  └─────────────────────┬─────────────────────┘
-                                        │
-                                        ▼
-                  ┌───────────────────────────────────────────┐
-                  │       COST OPTIMIZER AGENT (Google ADK)   │
-                  └─────────────────────┬─────────────────────┘
-                                        │
-                    ┌───────────────────┴───────────────────┐
-                    │                                       │
-                    ▼                                       ▼
-       ┌────────────────────────┐              ┌────────────────────────┐
-       │   Shot Analysis Tool   │              │  Parallel Search Tool  │
-       │  (Subject, Camera,     │              │  (Provider Intel &     │
-       │   Physics, Dynamics)   │              │   Stock Plate Search)  │
-       └────────────┬───────────┘              └────────────┬───────────┘
-                    │                                       │
-                    └───────────────────┬───────────────────┘
-                                        │
-                                        ▼
-                  ┌───────────────────────────────────────────┐
-                  │       Deterministic Cost Engine           │
-                  │  • Normalizes Rates ($/sec)               │
-                  │  • Applies Rerun Multipliers              │
-                  │  • Eliminates Incompatible Models         │
-                  └─────────────────────┬─────────────────────┘
-                                        │
-                                        ▼
-                  ┌───────────────────────────────────────────┐
-                  │       Google Gemini LLM Reasoning         │
-                  │  • Scene Technical Deconstruction         │
-                  │  • Concrete Tradeoff Analysis             │
-                  │  • Production Execution Strategy          │
-                  └─────────────────────┬─────────────────────┘
-                                        │
-                                        ▼
-                  ┌───────────────────────────────────────────┐
-                  │   Interactive Comparison Dashboard (UI)   │
-                  │   • Top 3 Model Recommendations           │
-                  │   • Ranked Pricing & Savings Matrix       │
-                  │   • Disqualification Explanations         │
-                  │   • Live Stock/B-Roll Replacement Cards   │
-                  └───────────────────────────────────────────┘
+                                  🎬 DIRECTOR / FILMMAKER
+                                             │
+                                             ▼
+                      ┌───────────────────────────────────────────┐
+                      │   FastAPI Web App / Google ADK Studio     │
+                      └──────────────────────┬────────────────────┘
+                                             │
+                                             ▼
+                      ┌───────────────────────────────────────────┐
+                      │    COST OPTIMIZER AGENT (Google ADK)      │
+                      └──────────────────────┬────────────────────┘
+                                             │
+                        ┌────────────────────┴────────────────────┐
+                        │                                         │
+                        ▼                                         ▼
+           ┌────────────────────────┐                ┌────────────────────────┐
+           │   Shot Analysis Tool   │                │  Parallel Search Tool  │
+           │  (Subject, Camera,     │                │  (Provider Intel &     │
+           │   Physics, Dynamics)   │                │   Stock Plate Search)  │
+           └────────────┬───────────┘                └────────────┬───────────┘
+                        │                                         │
+                        └────────────────────┬────────────────────┘
+                                             │
+                                             ▼
+                      ┌───────────────────────────────────────────┐
+                      │       Deterministic Cost Engine           │
+                      │  • Normalizes Rates ($/sec)               │
+                      │  • Applies Rerun Multipliers              │
+                      │  • Eliminates Incompatible Models         │
+                      └──────────────────────┬────────────────────┘
+                                             │
+                                             ▼
+                      ┌───────────────────────────────────────────┐
+                      │       Google Gemini LLM Reasoning         │
+                      │  • Scene Technical Deconstruction         │
+                      │  • Concrete Tradeoff Analysis             │
+                      │  • Production Execution Strategy          │
+                      └──────────────────────┬────────────────────┘
+                                             │
+                                             ▼
+                      ┌───────────────────────────────────────────┐
+                      │     Interactive Studio Dashboard (UI)     │
+                      │   • Top 3 Model Recommendations           │
+                      │   • Ranked Pricing & Savings Matrix       │
+                      │   • Google AP2 Agent Wallet & Pre-Funding │
+                      │   • Phase 2 Video Generation Review Modal │
+                      │   • 10s Cinematic Loading HUD & Player    │
+                      └───────────────────────────────────────────┘
 ```
-
----
-
-## 🧠 The 9-Step Reasoning Workflow
-
-1. **Extract Technical Shot Requirements**: Deconstructs prompts into subject type, camera movement, motion velocity, lighting style, and physics complexity.
-2. **Determine Essential Capabilities**: Infers mandatory model capabilities (e.g. `camera_motion_control`, `complex_physics_simulation`, `character_anatomy_consistency`).
-3. **Query Live Provider Intelligence via Parallel Search**: Queries active pricing, known limits, and capability updates across providers.
-4. **Discover Stock Footage & VFX Plates via Parallel Search**: Identifies existing 4K b-roll and background plates to reduce compute requirements.
-5. **Normalize Cross-Paradigm Pricing**: Translates per-second, credit-based, and fixed-generation rates into a unified `$ / second` standard.
-6. **Eliminate Unsuitable Models**: Enforces strict capability matching, disqualifying models lacking necessary features.
-7. **Calculate Total Estimated Budget**: Factors in target clip duration and iterative rerun multipliers (`Cost = Rate × Duration × Reruns`).
-8. **Rank Viable Alternatives**: Orders viable options from lowest to highest cost.
-9. **Synthesize Gemini Tradeoff Reasoning**: Generates expert cinematic advice detailing visual fidelity tradeoffs vs. cost savings.
 
 ---
 
@@ -99,137 +87,38 @@ The Cost Engine standardizes pricing across different billing paradigms into nor
 
 | Model | Provider | Pricing Paradigm | Base Rate | Normalized Rate | Quality Score | Primary Strengths |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Hailuo** | MiniMax | Fixed Generation | $0.24 / 6s | **$0.040 / sec** | 8.7 / 10 | Realistic human faces, organic motion, budget efficiency |
-| **Runway (Gen-3 Turbo)** | RunwayML | Credit-based | 5 cr/sec ($0.01/cr) | **$0.050 / sec** | 8.8 / 10 | Ultra-fast inference, strong camera motion presets |
-| **MiniMax-H3** | MiniMax | Fixed Generation | $0.25 / 5s | **$0.050 / sec** | 8.8 / 10 | High prompt adherence, physical object interaction |
-| **Seedance** | ByteDance | Fixed Generation | $0.30 / 5s | **$0.060 / sec** | 8.6 / 10 | Consistent character styling, smooth natural motion |
-| **Kling / Kling-Pro** | Kuaishou | Credit-based | 35–70 cr / 5–10s | **$0.070 / sec** | 9.1 / 10 | Long 10s coherence, complex human anatomy |
-| **Luma (Dream Machine)** | Luma AI | Fixed Generation | $0.40 / 5s | **$0.080 / sec** | 8.9 / 10 | Sweeping camera moves, massive environmental scale |
-| **Veo-Fast** | Google / Vertex AI | Per-second | $0.08 / sec | **$0.080 / sec** | 8.7 / 10 | Cost-effective cinematic framing and rapid turnaround |
-| **Runway (Gen-3 Alpha)** | RunwayML | Credit-based | 10 cr/sec ($0.01/cr) | **$0.100 / sec** | 9.3 / 10 | Hollywood dynamic range, complex cinematic lighting |
-| **Veo (Standard)** | Google / Vertex AI | Per-second | $0.15 / sec | **$0.150 / sec** | 9.4 / 10 | Industry-leading physics, fluid simulation, visual fidelity |
+| **Runway Gen-3 Alpha** | Runway | Credit-based ($0.05/sec) | $0.25 / 5s | $0.0500/sec | 88/100 | Camera control, photorealism |
+| **Runway Gen-3 Turbo** | Runway | High-speed ($0.025/sec) | $0.125 / 5s | $0.0250/sec | 82/100 | High velocity, cost-efficient |
+| **Luma Dream Machine** | Luma AI | Generation credit ($0.064/sec)| $0.32 / 5s | $0.0640/sec | 86/100 | Physical interaction, fluid motion |
+| **Kling v1.5** | Kuaishou | Subscription/API ($0.07/sec) | $0.35 / 5s | $0.0700/sec | 85/100 | Cinematic lighting, motion scale |
+| **Haiper v2** | Haiper | Flat per-generation ($0.04/sec)| $0.20 / 5s | $0.0400/sec | 78/100 | Stylized aesthetics, b-roll |
+| **Pika 2.0** | Pika Labs| Credit-based ($0.055/sec) | $0.275 / 5s | $0.0550/sec | 80/100 | Special visual effects, objects |
+| **Sora (Estimated)** | OpenAI | High-compute enterprise | $0.150 / 5s | $0.1500/sec | 95/100 | Complex physics, multi-shot scenes |
 
 ---
 
-## 📁 Repository Structure
+## 🛠️ Quickstart & Local Setup
 
-```
-ai-film/
-├── cost_optimizer_agent/
-│   ├── __init__.py               # Package exports (root_agent, ADK tools)
-│   ├── agent.py                  # Google ADK Agent definition with Gemini instructions
-│   ├── config.py                 # Configuration settings & environment loaders
-│   ├── cost_engine.py            # 9-step deterministic cost & capability engine
-│   ├── gemini_service.py         # Google Gemini LLM reasoning service
-│   ├── models_pricing.py         # Model specifications & pricing registry
-│   ├── parallel_search_tool.py   # Parallel Search API tool for provider intelligence
-│   ├── pricing.py                # Pricing normalization formulas
-│   ├── shot_analysis_tool.py     # Prompt requirement extraction tool
-│   └── tools.py                  # Parallel Search stock video footage discovery tool
-├── test_model_pricing.py         # Model pricing registry unit tests (16 tests)
-├── test_pricing.py               # Unit conversion and normalization tests (10 tests)
-├── test_workflow.py              # Full 9-step workflow & tool tests (4 tests)
-├── Dockerfile                    # Container definition for Google Cloud Run
-├── requirements.txt              # Production Python dependencies
-├── run.sh                        # One-command local startup script
-├── web_app.py                    # FastAPI web application with real-time UI
-├── main.py                       # CLI runner & interactive ADK demonstration
-├── .env.example                  # Environment variable configuration template
-├── LICENSE                       # Open source license (Apache 2.0)
-└── README.md                     # Documentation
-```
-
----
-
-## 🚀 Quickstart & Local Setup
-
-### 1. Clone & Setup Environment
-
+### 1. Clone & Install
 ```bash
 git clone https://github.com/watsoncsulahack/agent-film-cost-optimizer.git
 cd agent-film-cost-optimizer
+pip install -r requirements.txt
+```
 
-# Copy environment template
+### 2. Configure Environment
+Copy `.env.example` to `.env` and configure your API keys:
+```bash
 cp .env.example .env
 ```
 
-### 2. Configure API Keys
-
-Edit `.env` or set keys in your environment:
-```ini
-GEMINI_API_KEY="your_google_gemini_api_key"
-PARALLEL_API_KEY="your_parallel_api_key"       # https://parallel.ai
-GEMINI_MODEL="gemini-2.5-flash"
-```
-
-> **Note**: Both `GEMINI_API_KEY` and `PARALLEL_API_KEY` are strictly required. Keys can also be entered directly in the web UI's **API Settings** panel.
-
-### 3. Launch the Web Application
-
+### 3. Launch Studio
 ```bash
-# Option A: Using the startup script
-chmod +x run.sh && ./run.sh
-
-# Option B: Direct Python execution
-pip install -r requirements.txt
-python web_app.py
+./run.sh
 ```
-
-Open **[http://localhost:8000](http://localhost:8000)** in your browser.
+Navigate to [http://localhost:8000](http://localhost:8000).
 
 ---
 
-## 💻 Alternative Execution Modes
-
-### Option A: Interactive CLI Runner (`main.py`)
-```bash
-# Analyze a custom shot with Gemini LLM reasoning
-python main.py --shot "Drone aerial shot flying through futuristic neon Tokyo skyscrapers in rain"
-
-# Direct tool-only execution (bypasses LLM runner)
-python main.py --tool-only --shot "Slow motion waves crashing onto black sand beach in Iceland at dusk"
-```
-
-### Option B: Google ADK CLI
-```bash
-# Interactive ADK session
-adk run cost_optimizer_agent
-
-# ADK Web GUI
-adk web .
-```
-
-### Option C: Docker Container
-```bash
-docker build -t cost-optimizer-agent .
-docker run -p 8000:8000 -e GEMINI_API_KEY="your_key" -e PARALLEL_API_KEY="your_key" cost-optimizer-agent
-```
-
----
-
-## 🧪 Testing & Verification
-
-The test suite validates model pricing, normalization formulas, capability elimination matrices, and strict API key authentication:
-
-```bash
-pytest -v
-```
-
-```
-============================== test session starts ==============================
-test_model_pricing.py::test_model_registry_contains_all_models PASSED     [  3%]
-test_model_pricing.py::test_hailuo_pricing_normalization PASSED           [  6%]
-...
-test_workflow.py::test_tool_1_shot_analysis PASSED                        [ 90%]
-test_workflow.py::test_tool_2_parallel_search_missing_key_raises_error PASSED [ 93%]
-test_workflow.py::test_gemini_service_missing_key_raises_error PASSED     [ 96%]
-test_workflow.py::test_cost_engine_elimination_and_ranking PASSED         [100%]
-============================== 30 passed in 6.85s ===============================
-```
-
----
-
-## 🛡️ License
-
-This project is open-source under the [Apache 2.0 License](LICENSE).  
-Built with ❤️ for **Agentic Cinema: The Blockbuster Hackathon**.
+## 📄 License
+Licensed under the [Apache License 2.0](LICENSE).
